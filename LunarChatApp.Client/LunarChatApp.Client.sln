@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32922.545
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunarChatApp.Client", "LunarChatApp.Client\LunarChatApp.Client.csproj", "{4A58C455-0534-400D-83D0-2F5571250825}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4A58C455-0534-400D-83D0-2F5571250825}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A58C455-0534-400D-83D0-2F5571250825}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A58C455-0534-400D-83D0-2F5571250825}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A58C455-0534-400D-83D0-2F5571250825}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {86298847-AFFF-4309-80B0-5C9B2BBB57EE}
+	EndGlobalSection
+EndGlobal
