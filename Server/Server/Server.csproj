@@ -288,10 +288,7 @@
     <Compile Include="BUS\ConservationBUS.cs" />
     <Compile Include="BUS\GroupBUS.cs" />
     <Compile Include="BUS\GroupMemberBUS.cs" />
-    <Compile Include="BUS\ImportDetailBUS.cs" />
-    <Compile Include="BUS\ImportsBUS.cs" />
     <Compile Include="BUS\MessageBUS.cs" />
-    <Compile Include="BUS\ProductBUS.cs" />
     <Compile Include="BUS\UserBlockBUS.cs" />
     <Compile Include="BUS\UserBUS.cs" />
     <Compile Include="Core\Common.cs" />
@@ -299,24 +296,16 @@
     <Compile Include="Core\Validation.cs" />
     <Compile Include="DAO\ConnectDatabase.cs" />
     <Compile Include="DAO\ConservationDAO.cs" />
-    <Compile Include="DAO\EmployeeDAO.cs" />
     <Compile Include="DAO\GroupDAO.cs" />
     <Compile Include="DAO\GroupMemberDAO.cs" />
-    <Compile Include="DAO\ImportDetailDAO.cs" />
-    <Compile Include="DAO\ImportsDAO.cs" />
     <Compile Include="DAO\MessageDAO.cs" />
     <Compile Include="DAO\PackageModule.cs" />
-    <Compile Include="DAO\ProductDAO.cs" />
     <Compile Include="DAO\UserBlockDAO.cs" />
     <Compile Include="DAO\UserDAO.cs" />
     <Compile Include="DTO\ConservationDTO.cs" />
-    <Compile Include="DTO\EmployeeDTO.cs" />
     <Compile Include="DTO\GroupDTO.cs" />
     <Compile Include="DTO\GroupMemberDTO.cs" />
-    <Compile Include="DTO\ImportDetailDTO.cs" />
-    <Compile Include="DTO\ImportsDTO.cs" />
     <Compile Include="DTO\MessageDTO.cs" />
-    <Compile Include="DTO\ProductDTO.cs" />
     <Compile Include="DTO\UserBlockDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="GUI\Home\ctrHome.cs">
@@ -325,23 +314,11 @@
     <Compile Include="GUI\Home\ctrHome.Designer.cs">
       <DependentUpon>ctrHome.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Product\ctrProductList.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GUI\Product\ctrProductList.Designer.cs">
-      <DependentUpon>ctrProductList.cs</DependentUpon>
-    </Compile>
     <Compile Include="GUI\frmMenu.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GUI\frmMenu.Designer.cs">
       <DependentUpon>frmMenu.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Product\frmProductDetail.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Product\frmProductDetail.Designer.cs">
-      <DependentUpon>frmProductDetail.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -355,18 +332,6 @@
     </Compile>
     <Compile Include="GUI\Authority\frmSplashScreen.Designer.cs">
       <DependentUpon>frmSplashScreen.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Imports\ctrImportsList.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GUI\Imports\ctrImportsList.Designer.cs">
-      <DependentUpon>ctrImportsList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Imports\frmImportsDetail.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Imports\frmImportsDetail.Designer.cs">
-      <DependentUpon>frmImportsDetail.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\Notification\frmMessageOK.cs">
       <SubType>Form</SubType>
@@ -384,14 +349,8 @@
     <EmbeddedResource Include="GUI\Home\ctrHome.resx">
       <DependentUpon>ctrHome.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Product\ctrProductList.resx">
-      <DependentUpon>ctrProductList.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="GUI\frmMenu.resx">
       <DependentUpon>frmMenu.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Product\frmProductDetail.resx">
-      <DependentUpon>frmProductDetail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -401,12 +360,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Authority\frmSplashScreen.resx">
       <DependentUpon>frmSplashScreen.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Imports\ctrImportsList.resx">
-      <DependentUpon>ctrImportsList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Imports\frmImportsDetail.resx">
-      <DependentUpon>frmImportsDetail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Notification\frmMessageOK.resx">
       <DependentUpon>frmMessageOK.cs</DependentUpon>

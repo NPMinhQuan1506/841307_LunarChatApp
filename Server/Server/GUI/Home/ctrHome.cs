@@ -30,7 +30,7 @@ namespace Server.GUI.Home
         private delegate void CallDelegate(string text);
         IPEndPoint iep;
         Socket server;
-        Dictionary<int, Socket> ClientSocList = new Dictionary<int, Socket>(); // "id": Socket
+        Dictionary<string, Socket> ClientSocList = new Dictionary<string, Socket>(); // "id": Socket
         private byte[] data = new byte[1024];
         private int size = 1024;
         public ctrHome()
@@ -136,10 +136,10 @@ namespace Server.GUI.Home
                                 UserDTO userInfo = JsonConvert.DeserializeObject<UserDTO>(conn.Content);
                                 string username = userInfo.phone.ToString();
                                 string password = userInfo.password;
-                                var dtU = (dtUser.AsEnumerable().Where(row => username == row.Field<String>("phone"))).CopyToDataTable<DataRow>();
-                                int clientid = Convert.ToInt32(dtU.Rows[0]["id"].ToString());
-                                bool isExist = dtUser.AsEnumerable().Any(row => username == row.Field<String>("phone") && password == row.Field<String>("password"));
-                                if (isExist)
+                                var dtU = await UserBUS.Instance.loadDataByPhone(username);
+                                string clientid = dtU.id.ToString();
+                                int isExist = await UserBUS.Instance.login(username, password);
+                                if (isExist == 2)
                                 {
 
                                     ClientSocList.Remove(clientid);
@@ -150,9 +150,14 @@ namespace Server.GUI.Home
                                     ReceiveData(client);
                                     //SetText($"{username} logged in!");
                                 }
+                                else if (isExist == 1)
+                                {
+                                    ResponseToClient(client, "LOGINFAIL", "Sai mật khẩu!");
+                                    ReceiveData(client);
+                                }
                                 else
                                 {
-                                    ResponseToClient(client, "LOGINFAIL", "Login failed!");
+                                    ResponseToClient(client, "LOGINFAIL", "User không tồn tại!");
                                     ReceiveData(client);
                                 }
                             }
@@ -162,15 +167,15 @@ namespace Server.GUI.Home
                                 UserDTO registerInfo = JsonConvert.DeserializeObject<UserDTO>(conn.Content);
                                 string username = registerInfo.phone.ToString();
                                 string password = registerInfo.password;
-                                bool isExist = dtUser.AsEnumerable().Any(row => username == row.Field<String>("phone"));
-                                if (isExist)
+                                int isExist = await UserBUS.Instance.login(username, password);
+                                if (isExist == 1 || isExist == 2)
                                 {
                                     ResponseToClient(client, "SIGNINFAIL", "Account has already existed!");
                                     //SetText($"{username} registered!");
                                 }
                                 else
                                 {
-                                    await UserBUS.Instance.create(0, registerInfo.name, username, password, 1, 0, registerInfo.image);
+                                    await UserBUS.Instance.create("0", registerInfo.name, username, password, 1, 0, registerInfo.image);
                                     ResponseToClient(client, "SIGNINSUCC", "Account was successfully created!");
                                 }
                             }
@@ -179,9 +184,9 @@ namespace Server.GUI.Home
                             {
                                 UserDTO logout = JsonConvert.DeserializeObject<UserDTO>(conn.Content);
                                 string username = logout.phone;
-                                int clientid = logout.id;
-                                bool isExist = dtUser.AsEnumerable().Any(row => username == row.Field<String>("phone"));
-                                if (isExist)
+                                string clientid = logout.id;
+                                int isExist = await UserBUS.Instance.login(username, "");
+                                if (isExist == 1 || isExist == 2)
                                 {
                                     ResponseToClient(client, "LOGOUT", "Successfully logged out!");
                                     ClientSocList.Remove(clientid);
@@ -192,18 +197,18 @@ namespace Server.GUI.Home
                             break;
                         case "CHAT":
                             MessageDTO msg = JsonConvert.DeserializeObject<MessageDTO>(conn.Content);
-                            int conservId = msg.conservationId;
-                            int sender = msg.senderId;
-                            int receiver = msg.receiverId;
+                            string conservId = msg.conservationId;
+                            string sender = msg.senderId;
+                            string receiver = msg.receiverId;
                             string content = msg.msg;
                             string msgType = msg.msgType;
-                            if (conservId == 0)
+                            if (conservId == "0")
                             {
                                 if (sender != null && receiver != null && content != null)
                                 {
-                                    var conser = await ConservationBUS.Instance.create(0, sender, receiver, 0, "empty", "empty", 0);
+                                    var conser = await ConservationBUS.Instance.create("0", sender, receiver, "0", "", "", 0);
                                     conservId = conser.id;
-                                    await MessageBUS.Instance.create(0, conservId, sender, receiver, "", content, msgType, msg.attachmentUrl, 0);
+                                    await MessageBUS.Instance.create("0", conservId, sender, receiver, "", content, msgType, msg.attachmentUrl, 0, 0);
                                     bool equal = ClientSocList.ContainsKey(receiver);
                                     if (equal)
                                     {
@@ -218,9 +223,9 @@ namespace Server.GUI.Home
                             {
                                 if (sender != null && receiver != null && content != null)
                                 {
-                                    await MessageBUS.Instance.create(0, conservId, sender, receiver, "", content, msgType, msg.attachmentUrl, 0);
+                                    await MessageBUS.Instance.create("0", conservId, sender, receiver, "", content, msgType, msg.attachmentUrl, 0, 0);
                                     var conser = await ConservationBUS.Instance.loadDataById(conservId);
-                                    if (conser.groupId == 0)
+                                    if (conser.groupId == "0")
                                     {
                                         bool equal = ClientSocList.ContainsKey(receiver);
                                         if (equal)
@@ -234,17 +239,17 @@ namespace Server.GUI.Home
                                     else
                                     {
                                         var groupMembers = await GroupMemberBUS.Instance.loadData();
-                                        bool isExist = groupMembers.AsEnumerable().Any(row => receiver == row.Field<int>("userId"));
+                                        bool isExist = groupMembers.AsEnumerable().Any(row => receiver == row.Field<string>("userId"));
 
                                         if (isExist)
                                         {
-                                            var dt = (groupMembers.AsEnumerable().Where(r => r.Field<int>("GroupId") == conser.groupId)).CopyToDataTable<DataRow>();
+                                            var dt = (groupMembers.AsEnumerable().Where(r => r.Field<string>("GroupId") == conser.groupId)).CopyToDataTable<DataRow>();
 
                                             foreach (DataRow dr in dt.Rows)
                                             {
-                                                if (ClientSocList.ContainsKey(Convert.ToInt32(dr["userId"])))
+                                                if (ClientSocList.ContainsKey(dr["userId"].ToString()))
                                                 {
-                                                    Socket friend = ClientSocList[Convert.ToInt32(dr["userId"])];
+                                                    Socket friend = ClientSocList[dr["userId"].ToString()];
                                                     SendData(friend, conn);
                                                 }
                                             }
@@ -262,24 +267,24 @@ namespace Server.GUI.Home
                             var groupName = groupObj.name;
                             
 
-                            if (groupObj.id != 0)
+                            if (groupObj.id != "0")
                             {
                                 var member = first.Value;
                                 foreach(var item in member)
                                 {
-                                    await GroupMemberBUS.Instance.create(0, groupObj.id, item.userId, item.role);
+                                    await GroupMemberBUS.Instance.create("0", groupObj.id, item.userId, item.role);
                                 }
                                 ResponseToClient(client, "OK", "Successfully added!");
 
                             }
                             else
                             {
-                                var groupNew = await GroupBUS.Instance.create(0, groupName, groupObj.img, 1);
+                                var groupNew = await GroupBUS.Instance.create("0", groupName, groupObj.img, 1);
                                 
                                 var member = first.Value;
                                 foreach (var item in member)
                                 {
-                                    await GroupMemberBUS.Instance.create(0, groupNew.id, item.userId, item.role);
+                                    await GroupMemberBUS.Instance.create("0", groupNew.id, item.userId, item.role);
                                 }
                                 ResponseToClient(client, "OK", "Successfully added!");
                             }
@@ -287,7 +292,7 @@ namespace Server.GUI.Home
                         case "EDITGROUP":
                             GroupMemberDTO groupEdit = JsonConvert.DeserializeObject<GroupMemberDTO>(conn.Content);
 
-                            if (groupEdit.id != 0)
+                            if (groupEdit.id != "0")
                             {
                                 await GroupMemberBUS.Instance.update(groupEdit.id, groupEdit.groupId, groupEdit.userId, groupEdit.role);
                                 ResponseToClient(client, "OK", "Successfully added!");
@@ -297,7 +302,7 @@ namespace Server.GUI.Home
                         case "DELMEMGROUP":
                             GroupMemberDTO groupDel = JsonConvert.DeserializeObject<GroupMemberDTO>(conn.Content);
 
-                            if (groupDel.id != 0)
+                            if (groupDel.id != "0")
                             {
                                 await GroupMemberBUS.Instance.delete(groupDel.id);
                                 ResponseToClient(client, "OK", "Successfully added!");

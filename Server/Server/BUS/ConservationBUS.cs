@@ -27,11 +27,11 @@ namespace Server.BUS
             return await ConservationDAO.Instance.loadData();
         }
 
-        public async Task<ConservationDTO> loadDataById(int id)
+        public async Task<ConservationDTO> loadDataById(string id)
         {
             return await ConservationDAO.Instance.loadDataById(id);
         }
-        public async Task<ConservationDTO> create(int id, int sourceId, int targetId, int groupId, string sourceAlias, string targetAlias, int status)
+        public async Task<ConservationDTO> create(string id, string sourceId, string targetId, string groupId, string sourceAlias, string targetAlias, int status)
         {
             ConservationDTO Conservation = new ConservationDTO
             {
@@ -41,13 +41,14 @@ namespace Server.BUS
                 groupId = groupId, 
                 sourceAlias = sourceAlias != null ? sourceAlias : "empty", 
                 targetAlias = targetAlias != null ? targetAlias : "empty",
-                status = status
+                status = status,
+                created = Core.Common.DateTimeTo_ymdhms(DateTime.Now)
             };
             var result = await ConservationDAO.Instance.create(Conservation);
             return result;
         }
 
-        public async Task update(int id, int sourceId, int targetId, int groupId, string sourceAlias, string targetAlias, int status)
+        public async Task<ConservationDTO> update(string id, string sourceId, string targetId, string groupId, string sourceAlias, string targetAlias, int status)
         {
             var item = await ConservationDAO.Instance.loadDataById(id);
             ConservationDTO Conservation = new ConservationDTO
@@ -59,11 +60,12 @@ namespace Server.BUS
                 sourceAlias = sourceAlias != null ? sourceAlias : item.sourceAlias,
                 targetAlias = targetAlias != null ? targetAlias : item.targetAlias,
                 status = status != null ? status : item.status,
+                created = item.created
             };
-            await ConservationDAO.Instance.update(Conservation);
+            return await ConservationDAO.Instance.update(Conservation);
         }
 
-        public async Task delete(int id)
+        public async Task delete(string id)
         {
             await ConservationDAO.Instance.delete(id).ConfigureAwait(false);
         }

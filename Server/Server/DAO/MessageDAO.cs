@@ -8,6 +8,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Server.DAO
 {
@@ -36,7 +37,7 @@ namespace Server.DAO
             return populateData(resBody);
         }
 
-        public async Task<MessageDTO> loadDataById(int id)
+        public async Task<MessageDTO> loadDataById(string id)
         {
             FirebaseResponse res = await Client.GetTaskAsync(@"Message/" + id.ToString() + @"/");
             var result = JsonConvert.DeserializeObject<MessageDTO>(res.Body.ToString());
@@ -60,22 +61,26 @@ namespace Server.DAO
 
         }
 
-        public async Task create(MessageDTO Message)
+        public async Task<MessageDTO> create(MessageDTO Message)
         {
+            Message.id = Core.Common.DateTimeNowToBigInt();
             SetResponse response = await Client.SetTaskAsync(@"Message/" + Message.id.ToString(), Message);
             MessageDTO result = response.ResultAs<MessageDTO>();
+            return result;
         }
 
-        public async Task update(MessageDTO Message)
+        public async Task<MessageDTO> update(MessageDTO Message)
         {
             FirebaseResponse response = await Client.UpdateTaskAsync(@"Message/" + Message.id.ToString(), Message);
             MessageDTO result = response.ResultAs<MessageDTO>();
+            return result;
         }
 
-        public async Task delete(int id)
+        public async Task<MessageDTO> delete(string id)
         {
-            FirebaseResponse response = await Client.DeleteTaskAsync(@"Message/" + id.ToString());
+            FirebaseResponse response = await Client.UpdateTaskAsync(@"Message/" + id.ToString() + "/state", 0);
             MessageDTO result = response.ResultAs<MessageDTO>();
+            return result;
         }
 
         public async Task<DataTable> search(string searchstring)

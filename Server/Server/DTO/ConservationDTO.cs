@@ -10,13 +10,14 @@ namespace Server.DTO
     class ConservationDTO
     {
         private static DataTable dt;
-        public int id { set; get; } = 0;
-        public int sourceId { set; get; } = 0;
-        public int targetId { set; get; } = 0;
-        public int groupId { set; get; } = 0;
-        public string sourceAlias { set; get; } = "empty";
-        public string targetAlias { set; get; } = "empty";
+        public string id { set; get; } = "";
+        public string sourceId { set; get; } = "";
+        public string targetId { set; get; } = "";
+        public string groupId { set; get; } = "";
+        public string sourceAlias { set; get; } = "";
+        public string targetAlias { set; get; } = "";
         public int status { set; get; } = 0; //-1, 0, 1, 2
+        public string created { set; get; } = Core.Common.DateTimeTo_ymdhms(DateTime.Now);
 
         public DataRow convertToDataRow()
         {
@@ -28,6 +29,7 @@ namespace Server.DTO
             dr["sourceAlias"] = this.sourceAlias;
             dr["targetAlias"] = this.targetAlias;
             dr["status"] = this.status; //-1 source block; -2 target block; 0 target not reply; 1 target rep; 2 accept
+            dr["created"] = this.created;
             return dr;
         }
 
@@ -41,6 +43,7 @@ namespace Server.DTO
             dt.Columns.Add("sourceAlias");
             dt.Columns.Add("targetAlias");
             dt.Columns.Add("status");
+            dt.Columns.Add("created");
             return dt;
         }
     }

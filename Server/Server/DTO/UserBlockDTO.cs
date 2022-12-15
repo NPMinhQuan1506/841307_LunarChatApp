@@ -10,9 +10,10 @@ namespace Server.DTO
     class UserBlockDTO
     {
         private static DataTable dt;
-        public int id { set; get; } = 0;
-        public int sourceId { set; get; } = 0;
-        public int targetId { set; get; } = 0;
+        public string id { set; get; } = "";
+        public string sourceId { set; get; } = "";
+        public string targetId { set; get; } = "";
+        public string created { set; get; } = Core.Common.DateTimeTo_ymdhms(DateTime.Now);
 
         public DataRow convertToDataRow()
         {
@@ -20,6 +21,7 @@ namespace Server.DTO
             dr["id"] = this.id;
             dr["sourceId"] = this.sourceId;
             dr["targetId"] = this.targetId;
+            dr["created"] = this.targetId;
             return dr;
         }
 
@@ -29,6 +31,7 @@ namespace Server.DTO
             dt.Columns.Add("id");
             dt.Columns.Add("sourceId");
             dt.Columns.Add("targetId");
+            dt.Columns.Add("created");
             return dt;
         }
     }

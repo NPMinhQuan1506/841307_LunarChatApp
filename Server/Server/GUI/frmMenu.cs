@@ -33,21 +33,21 @@ namespace Server.GUI
 
         private void aceProduct_Click(object sender, EventArgs e)
         {
-            setImageCurrentPage("aceProduct");
-            pnContainer.Controls.Clear();
-            GUI.Product.ctrProductList ctr = new GUI.Product.ctrProductList();
-            ctr.Dock = DockStyle.Fill;
-            pnContainer.Controls.Add(ctr);
+            //setImageCurrentPage("aceProduct");
+            //pnContainer.Controls.Clear();
+            //GUI.Product.ctrProductList ctr = new GUI.Product.ctrProductList();
+            //ctr.Dock = DockStyle.Fill;
+            //pnContainer.Controls.Add(ctr);
         }
 
      
         private void aceImport_Click(object sender, EventArgs e)
         {
-            setImageCurrentPage("aceImport");
-            pnContainer.Controls.Clear();
-            GUI.Imports.ctrImportsList ctr = new GUI.Imports.ctrImportsList();
-            ctr.Dock = DockStyle.Fill;
-            pnContainer.Controls.Add(ctr);
+            //setImageCurrentPage("aceImport");
+            //pnContainer.Controls.Clear();
+            //GUI.Imports.ctrImportsList ctr = new GUI.Imports.ctrImportsList();
+            //ctr.Dock = DockStyle.Fill;
+            //pnContainer.Controls.Add(ctr);
         }
 
       

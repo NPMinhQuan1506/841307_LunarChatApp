@@ -1,6 +1,7 @@
 ﻿using FireSharp.Interfaces;
 using FireSharp.Response;
 using Newtonsoft.Json;
+using Server.Core;
 using Server.DTO;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Server.DAO
 {
@@ -36,13 +38,26 @@ namespace Server.DAO
             return populateData(resBody);
         }
 
-        public async Task<UserDTO> loadDataById(int id)
+        public async Task<UserDTO> loadDataById(string id)
         {
             FirebaseResponse res = await Client.GetTaskAsync(@"User/" + id.ToString() + @"/");
             var result = JsonConvert.DeserializeObject<UserDTO>(res.Body.ToString());
             return result;
         }
-
+        public async Task<UserDTO> loadDataByPhone(string phone)
+        {
+            FirebaseResponse res = await Client.GetTaskAsync(@"User/");
+            string resBody = res.Body.ToString();
+            var record = JsonConvert.DeserializeObject<Dictionary<string, UserDTO>>(resBody);
+            foreach (var item in record)
+            {
+                if (item.Value.phone == phone)
+                {
+                    return item.Value;
+                }
+            }
+            return null;
+        }
         private DataTable populateData(string resBody)
         {
             var record = JsonConvert.DeserializeObject<Dictionary<string, UserDTO>>(resBody);
@@ -59,20 +74,10 @@ namespace Server.DAO
             return dt;
 
         }
-        private async Task<int> getLastId()
-        {
-            FirebaseResponse res = await Client.GetTaskAsync(@"User/");
-            string resBody = res.Body.ToString();
-            var record = JsonConvert.DeserializeObject<Dictionary<string, UserDTO>>(resBody);
-            var last = record.Values.Last();
-
-
-            return last.id + 1;
-        }
 
         public async Task create(UserDTO User)
         {
-            User.id = await getLastId();
+            User.id = Core.Common.DateTimeNowToBigInt();
             SetResponse response = await Client.SetTaskAsync(@"User/" + User.id.ToString(), User);
             UserDTO result = response.ResultAs<UserDTO>();
         }
@@ -83,10 +88,28 @@ namespace Server.DAO
             UserDTO result = response.ResultAs<UserDTO>();
         }
 
-        public async Task delete(int id)
+        public async Task delete(string id)
         {
             FirebaseResponse response = await Client.DeleteTaskAsync(@"User/" + id.ToString());
             UserDTO result = response.ResultAs<UserDTO>();
+        }
+
+        public async Task<int> login(string username, string pass)
+        {
+            FirebaseResponse res = await Client.GetTaskAsync(@"User/");
+            string resBody = res.Body.ToString();
+            var record = JsonConvert.DeserializeObject<Dictionary<string, UserDTO>>(resBody);
+            foreach (var item in record)
+            {
+                if(item.Value.phone == username && item.Value.password != pass)
+                {
+                    return 1;
+                }
+                if(item.Value.phone == username && item.Value.password == pass) {
+                    return 2;
+                }
+            }
+            return 0;
         }
 
         public async Task<DataTable> search(string searchstring)

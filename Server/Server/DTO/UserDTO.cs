@@ -10,13 +10,15 @@ namespace Server.DTO
     internal class UserDTO
     {
         private static DataTable dt;
-        public int id { set; get; } = 0;
+        public string id { set; get; } = "";
         public string name { set; get; } = "";
         public string phone { set; get; } = "";
         public string password { set; get; } = "";
         public int isActive { set; get; } = 0;
         public int isBlocked { set; get; } = 0;
         public string image { set; get; } = "";
+        public string lastsignin { set; get; } = Core.Common.DateTimeNowToBigInt();
+        public string created { set; get; } = Core.Common.DateTimeTo_ymdhms(DateTime.Now);
 
         public DataRow convertToDataRow()
         {
@@ -28,6 +30,8 @@ namespace Server.DTO
             dr["isActive"] = this.isActive;
             dr["isBlocked"] = this.isBlocked;
             dr["image"] = this.image;
+            dr["lastsignin"] = this.lastsignin;
+            dr["created"] = this.created;
             return dr;
         }
 
@@ -41,6 +45,8 @@ namespace Server.DTO
             dt.Columns.Add("isActive");
             dt.Columns.Add("isBlocked");
             dt.Columns.Add("image");
+            dt.Columns.Add("lastsignin");
+            dt.Columns.Add("created");
             return dt;
         }
     }

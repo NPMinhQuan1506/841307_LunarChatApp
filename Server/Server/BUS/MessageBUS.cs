@@ -29,11 +29,11 @@ namespace Server.BUS
             return await MessageDAO.Instance.loadData();
         }
 
-        public async Task<MessageDTO> loadDataById(int id)
+        public async Task<MessageDTO> loadDataById(string id)
         {
             return await MessageDAO.Instance.loadDataById(id);
         }
-        public async Task create(int id, int conservationId, int senderId, int receiverId, string seen, string msg, string msgType, string attachmentUrl, int state)
+        public async Task<MessageDTO> create(string id, string conservationId, string senderId, string receiverId, string seen, string msg, string msgType, string attachmentUrl, int state, int react)
         {
             MessageDTO Message = new MessageDTO()
             {
@@ -45,12 +45,14 @@ namespace Server.BUS
                 msg = msg, 
                 msgType = msgType, 
                 attachmentUrl = attachmentUrl, 
-                state = state
+                state = state,
+                react = react,
+                created = Core.Common.DateTimeTo_ymdhms(DateTime.Now)
             };
-            await MessageDAO.Instance.create(Message);
+            return await MessageDAO.Instance.create(Message);
         }
 
-        public async Task update(int id, int conservationId, int senderId, int receiverId, string seen, string msg, string msgType, string attachmentUrl, int state)
+        public async Task<MessageDTO> update(string id, string conservationId, string senderId, string receiverId, string seen, string msg, string msgType, string attachmentUrl, int state, int react)
         {
             var item = await MessageDAO.Instance.loadDataById(id);
 
@@ -65,13 +67,15 @@ namespace Server.BUS
                 msgType = item.msgType,
                 attachmentUrl = item.attachmentUrl,
                 state = state != null ? state : item.state,
+                react = react,
+                created = item.created,
             };
-            await MessageDAO.Instance.update(Message);
+            return await MessageDAO.Instance.update(Message);
         }
 
-        public async Task delete(int id)
+        public async Task<MessageDTO> delete(string id)
         {
-            await MessageDAO.Instance.delete(id).ConfigureAwait(false);
+            return await MessageDAO.Instance.delete(id).ConfigureAwait(false);
         }
 
         public async Task<DataTable> search(string search)

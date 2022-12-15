@@ -36,7 +36,7 @@ namespace Server.DAO
             return populateData(resBody);
         }
 
-        public async Task<UserBlockDTO> loadDataById(int id)
+        public async Task<UserBlockDTO> loadDataById(string id)
         {
             FirebaseResponse res = await Client.GetTaskAsync(@"UserBlock/" + id.ToString() + @"/");
             var result = JsonConvert.DeserializeObject<UserBlockDTO>(res.Body.ToString());
@@ -62,6 +62,7 @@ namespace Server.DAO
 
         public async Task create(UserBlockDTO UserBlock)
         {
+            UserBlock.id = Core.Common.DateTimeNowToBigInt();
             SetResponse response = await Client.SetTaskAsync(@"UserBlock/" + UserBlock.id, UserBlock);
             UserBlockDTO result = response.ResultAs<UserBlockDTO>();
         }
@@ -72,7 +73,7 @@ namespace Server.DAO
             UserBlockDTO result = response.ResultAs<UserBlockDTO>();
         }
 
-        public async Task delete(int id)
+        public async Task delete(string id)
         {
             FirebaseResponse response = await Client.DeleteTaskAsync(@"UserBlock/" + id.ToString());
             UserBlockDTO result = response.ResultAs<UserBlockDTO>();

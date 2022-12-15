@@ -37,7 +37,7 @@ namespace Server.DAO
             return populateData(resBody);
         }
 
-        public async Task<GroupMemberDTO> loadDataById(int id)
+        public async Task<GroupMemberDTO> loadDataById(string id)
         {
             FirebaseResponse res = await Client.GetTaskAsync(@"GroupMember/" + id.ToString() + @"/");
             var result = JsonConvert.DeserializeObject<GroupMemberDTO>(res.Body.ToString());
@@ -61,20 +61,9 @@ namespace Server.DAO
 
         }
 
-        private async Task<int> getLastId()
-        {
-            FirebaseResponse res = await Client.GetTaskAsync(@"GroupMember/");
-            string resBody = res.Body.ToString();
-            var record = JsonConvert.DeserializeObject<Dictionary<string, GroupMemberDTO>>(resBody);
-            var last = record.Values.Last();
-            
-
-            return last.id + 1;
-        }
-
         public async Task create(GroupMemberDTO GroupMember)
         {
-            GroupMember.id = await getLastId();
+            GroupMember.id = Core.Common.DateTimeNowToBigInt();
             SetResponse response = await Client.SetTaskAsync(@"GroupMember/" + GroupMember.id.ToString(), GroupMember);
             GroupMemberDTO result = response.ResultAs<GroupMemberDTO>();
         }
@@ -85,7 +74,7 @@ namespace Server.DAO
             GroupMemberDTO result = response.ResultAs<GroupMemberDTO>();
         }
 
-        public async Task delete(int id)
+        public async Task delete(string id)
         {
             FirebaseResponse response = await Client.DeleteTaskAsync(@"GroupMember/" + id.ToString());
             GroupMemberDTO result = response.ResultAs<GroupMemberDTO>();

@@ -10,10 +10,11 @@ namespace Server.DTO
     class GroupMemberDTO
     {
         private static DataTable dt;
-        public int id { set; get; } = 0;
-        public int groupId { set; get; } = 0;
-        public int userId { set; get; } = 0;
+        public string id { set; get; } = "";
+        public string groupId { set; get; } = "";
+        public string userId { set; get; } = "";
         public int role { set; get; } = 0;
+        public string created { set; get; } = Core.Common.DateTimeTo_ymdhms(DateTime.Now);
 
         public DataRow convertToDataRow()
         {
@@ -22,6 +23,7 @@ namespace Server.DTO
             dr["groupId"] = this.groupId;
             dr["userId"] = this.userId;
             dr["role"] = this.role;
+            dr["created"] = this.created;
             return dr;
         }
 
@@ -32,6 +34,7 @@ namespace Server.DTO
             dt.Columns.Add("groupId");
             dt.Columns.Add("userId");
             dt.Columns.Add("role");
+            dt.Columns.Add("created");
             return dt;
         }
     }

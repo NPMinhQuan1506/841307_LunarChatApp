@@ -29,24 +29,25 @@ namespace Server.BUS
             return await GroupMemberDAO.Instance.loadData();
         }
 
-        public async Task<GroupMemberDTO> loadDataById(int id)
+        public async Task<GroupMemberDTO> loadDataById(string id)
         {
             return await GroupMemberDAO.Instance.loadDataById(id);
         }
 
-        public async Task create(int id, int groupId, int userId, int role)
+        public async Task create(string id, string groupId, string userId, int role)
         {
             GroupMemberDTO GroupMember = new GroupMemberDTO
             {
                 id = id, 
                 groupId = id, 
                 userId = userId, 
-                role = role
+                role = role,
+                created = Core.Common.DateTimeTo_ymdhms(DateTime.Now)
             };
             await GroupMemberDAO.Instance.create(GroupMember);
         }
 
-        public async Task update(int id, int groupId, int userId, int role)
+        public async Task update(string id, string groupId, string userId, int role)
         {
             var item = await GroupMemberDAO.Instance.loadDataById(id);
 
@@ -55,12 +56,13 @@ namespace Server.BUS
                 id = item.id,
                 groupId = groupId != groupId ? groupId : item.groupId,
                 userId = userId != userId ? userId : item.userId,
-                role = role != role ? role : item.role
+                role = role != role ? role : item.role,
+                created = item.created
             };
             await GroupMemberDAO.Instance.update(GroupMember);
         }
 
-        public async Task delete(int id)
+        public async Task delete(string id)
         {
              await GroupMemberDAO.Instance.delete(id).ConfigureAwait(false);
         }

@@ -36,7 +36,7 @@ namespace Server.DAO
             return populateData(resBody);
         }
 
-        public async Task<ConservationDTO> loadDataById(int id)
+        public async Task<ConservationDTO> loadDataById(string id)
         {
             FirebaseResponse res = await Client.GetTaskAsync(@"Conservation/" + id.ToString() + @"/");
             var result = JsonConvert.DeserializeObject<ConservationDTO>(res.Body.ToString());
@@ -59,31 +59,23 @@ namespace Server.DAO
             return dt;
 
         }
-        private async Task<int> getLastId()
-        {
-            FirebaseResponse res = await Client.GetTaskAsync(@"Conservation/");
-            string resBody = res.Body.ToString();
-            var record = JsonConvert.DeserializeObject<Dictionary<string, ConservationDTO>>(resBody);
-            var last = record.Values.Last();
 
-
-            return last.id + 1;
-        }
         public async Task<ConservationDTO> create(ConservationDTO Conservation)
         {
-            Conservation.id = await getLastId();
+            Conservation.id = Core.Common.DateTimeNowToBigInt();
             SetResponse response = await Client.SetTaskAsync(@"Conservation/" + Conservation.id.ToString(), Conservation);
             ConservationDTO result = response.ResultAs<ConservationDTO>();
             return result;
         }
 
-        public async Task update(ConservationDTO Conservation)
+        public async Task<ConservationDTO> update(ConservationDTO Conservation)
         {
             FirebaseResponse response = await Client.UpdateTaskAsync(@"Conservation/" + Conservation.id.ToString(), Conservation);
             ConservationDTO result = response.ResultAs<ConservationDTO>();
+            return result;
         }
 
-        public async Task delete(int id)
+        public async Task delete(string id)
         {
             FirebaseResponse response = await Client.DeleteTaskAsync(@"Conservation/" + id.ToString());
             ConservationDTO result = response.ResultAs<ConservationDTO>();
