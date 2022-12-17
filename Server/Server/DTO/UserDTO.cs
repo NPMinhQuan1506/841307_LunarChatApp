@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Server.DTO
 {
-    internal class UserDTO
+    public class UserDTO
     {
-        private static DataTable dt;
         public string id { set; get; } = "";
         public string name { set; get; } = "";
         public string phone { set; get; } = "";
@@ -22,6 +21,8 @@ namespace Server.DTO
 
         public DataRow convertToDataRow()
         {
+            DataTable dt = new DataTable();
+            dt = convertToDataTable();
             DataRow dr = dt.NewRow();
             dr["id"] = this.id;
             dr["name"] = this.name;
@@ -35,8 +36,9 @@ namespace Server.DTO
             return dr;
         }
 
-        public static DataTable convertToDataTable()
+        public DataTable convertToDataTable()
         {
+            DataTable dt = new DataTable();
             dt = new DataTable();
             dt.Columns.Add("id");
             dt.Columns.Add("name");

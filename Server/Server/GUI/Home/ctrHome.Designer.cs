@@ -28,32 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ctrHome));
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
             this.pnHeader = new DevExpress.XtraEditors.PanelControl();
             this.txtStatus = new DevExpress.XtraEditors.LabelControl();
             this.txtPort = new DevExpress.XtraEditors.TextEdit();
             this.btnOpen = new DevExpress.XtraEditors.ButtonEdit();
             this.txtIp = new DevExpress.XtraEditors.TextEdit();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.tbRevenue = new System.Windows.Forms.TabControl();
+            this.tpOverview = new System.Windows.Forms.TabPage();
+            this.tpDetail = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.pnHeader)).BeginInit();
             this.pnHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtPort.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnOpen.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtIp.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
+            this.panelControl1.SuspendLayout();
+            this.tbRevenue.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnHeader
             // 
             this.pnHeader.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(214)))), ((int)(((byte)(216)))));
             this.pnHeader.Appearance.Options.UseBackColor = true;
-            this.pnHeader.Controls.Add(this.richTextBox1);
             this.pnHeader.Controls.Add(this.txtStatus);
             this.pnHeader.Controls.Add(this.txtPort);
             this.pnHeader.Controls.Add(this.btnOpen);
@@ -64,7 +67,7 @@
             this.pnHeader.LookAndFeel.UseDefaultLookAndFeel = false;
             this.pnHeader.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.pnHeader.Name = "pnHeader";
-            this.pnHeader.Size = new System.Drawing.Size(532, 765);
+            this.pnHeader.Size = new System.Drawing.Size(402, 765);
             this.pnHeader.TabIndex = 1;
             // 
             // txtStatus
@@ -78,7 +81,7 @@
             // txtPort
             // 
             this.txtPort.EditValue = "Port";
-            this.txtPort.Location = new System.Drawing.Point(396, 260);
+            this.txtPort.Location = new System.Drawing.Point(275, 259);
             this.txtPort.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.txtPort.Name = "txtPort";
             this.txtPort.Properties.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(202)))), ((int)(((byte)(203)))));
@@ -97,12 +100,13 @@
             this.txtPort.Properties.Padding = new System.Windows.Forms.Padding(0, 0, 41, 0);
             this.txtPort.Size = new System.Drawing.Size(110, 47);
             this.txtPort.TabIndex = 52;
+            this.txtPort.EditValueChanged += new System.EventHandler(this.txtPort_EditValueChanged);
             // 
             // btnOpen
             // 
             this.btnOpen.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnOpen.EditValue = "Mở Server";
-            this.btnOpen.Location = new System.Drawing.Point(152, 110);
+            this.btnOpen.Location = new System.Drawing.Point(131, 52);
             this.btnOpen.Margin = new System.Windows.Forms.Padding(4);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Properties.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(202)))), ((int)(((byte)(203)))));
@@ -115,9 +119,9 @@
             this.btnOpen.Properties.Appearance.Options.UseForeColor = true;
             this.btnOpen.Properties.AutoHeight = false;
             this.btnOpen.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat;
-            editorButtonImageOptions2.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions2.SvgImage")));
+            editorButtonImageOptions1.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("editorButtonImageOptions1.SvgImage")));
             this.btnOpen.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, true, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, true, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
             this.btnOpen.Properties.ReadOnly = true;
             this.btnOpen.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.btnOpen.Properties.UseReadOnlyAppearance = false;
@@ -146,29 +150,58 @@
             this.txtIp.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat;
             this.txtIp.Properties.NullText = "Nhập Thông Tin Tìm Kiếm";
             this.txtIp.Properties.Padding = new System.Windows.Forms.Padding(0, 0, 41, 0);
-            this.txtIp.Size = new System.Drawing.Size(341, 47);
+            this.txtIp.Size = new System.Drawing.Size(219, 47);
             this.txtIp.TabIndex = 0;
+            this.txtIp.EditValueChanged += new System.EventHandler(this.txtIp_EditValueChanged);
             // 
             // panelControl1
             // 
             this.panelControl1.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(214)))), ((int)(((byte)(216)))));
             this.panelControl1.Appearance.Options.UseBackColor = true;
+            this.panelControl1.Controls.Add(this.tbRevenue);
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl1.Location = new System.Drawing.Point(532, 0);
+            this.panelControl1.Location = new System.Drawing.Point(402, 0);
             this.panelControl1.LookAndFeel.SkinMaskColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(214)))), ((int)(((byte)(216)))));
             this.panelControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             this.panelControl1.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(781, 765);
+            this.panelControl1.Size = new System.Drawing.Size(911, 765);
             this.panelControl1.TabIndex = 53;
             // 
-            // richTextBox1
+            // tbRevenue
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(104, 376);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(100, 96);
-            this.richTextBox1.TabIndex = 54;
-            this.richTextBox1.Text = "";
+            this.tbRevenue.Controls.Add(this.tpOverview);
+            this.tbRevenue.Controls.Add(this.tpDetail);
+            this.tbRevenue.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbRevenue.Location = new System.Drawing.Point(2, 2);
+            this.tbRevenue.Margin = new System.Windows.Forms.Padding(4);
+            this.tbRevenue.Name = "tbRevenue";
+            this.tbRevenue.SelectedIndex = 0;
+            this.tbRevenue.Size = new System.Drawing.Size(907, 761);
+            this.tbRevenue.TabIndex = 1;
+            this.tbRevenue.SelectedIndexChanged += new System.EventHandler(this.tbRevenue_SelectedIndexChanged);
+            // 
+            // tpOverview
+            // 
+            this.tpOverview.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(220)))), ((int)(((byte)(223)))));
+            this.tpOverview.Location = new System.Drawing.Point(4, 41);
+            this.tpOverview.Margin = new System.Windows.Forms.Padding(4);
+            this.tpOverview.Name = "tpOverview";
+            this.tpOverview.Padding = new System.Windows.Forms.Padding(4);
+            this.tpOverview.Size = new System.Drawing.Size(899, 716);
+            this.tpOverview.TabIndex = 0;
+            this.tpOverview.Text = "Lịch sử";
+            // 
+            // tpDetail
+            // 
+            this.tpDetail.Location = new System.Drawing.Point(4, 41);
+            this.tpDetail.Margin = new System.Windows.Forms.Padding(4);
+            this.tpDetail.Name = "tpDetail";
+            this.tpDetail.Padding = new System.Windows.Forms.Padding(4);
+            this.tpDetail.Size = new System.Drawing.Size(899, 716);
+            this.tpDetail.TabIndex = 1;
+            this.tpDetail.Text = "Trạng thái";
+            this.tpDetail.UseVisualStyleBackColor = true;
             // 
             // ctrHome
             // 
@@ -185,6 +218,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnOpen.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtIp.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
+            this.panelControl1.ResumeLayout(false);
+            this.tbRevenue.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -197,6 +232,8 @@
         private DevExpress.XtraEditors.ButtonEdit btnOpen;
         private DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraEditors.LabelControl txtStatus;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.TabControl tbRevenue;
+        private System.Windows.Forms.TabPage tpOverview;
+        private System.Windows.Forms.TabPage tpDetail;
     }
 }

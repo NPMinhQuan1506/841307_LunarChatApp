@@ -28,33 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.progressBarControl = new DevExpress.XtraEditors.MarqueeProgressBarControl();
             this.labelCopyright = new DevExpress.XtraEditors.LabelControl();
             this.labelStatus = new DevExpress.XtraEditors.LabelControl();
             this.lbTitle = new DevExpress.XtraEditors.LabelControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.peImage = new DevExpress.XtraEditors.PictureEdit();
-            ((System.ComponentModel.ISupportInitialize)(this.progressBarControl.Properties)).BeginInit();
+            this.progressBarControl = new DevExpress.XtraEditors.MarqueeProgressBarControl();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.peImage.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.progressBarControl.Properties)).BeginInit();
             this.SuspendLayout();
-            // 
-            // progressBarControl
-            // 
-            this.progressBarControl.EditValue = 0;
-            this.progressBarControl.Location = new System.Drawing.Point(31, 293);
-            this.progressBarControl.Margin = new System.Windows.Forms.Padding(4);
-            this.progressBarControl.Name = "progressBarControl";
-            this.progressBarControl.Properties.Appearance.BackColor = System.Drawing.Color.Azure;
-            this.progressBarControl.Properties.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(20)))));
-            this.progressBarControl.Properties.EndColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(20)))));
-            this.progressBarControl.Properties.LookAndFeel.SkinMaskColor = System.Drawing.Color.MidnightBlue;
-            this.progressBarControl.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
-            this.progressBarControl.Properties.ProgressAnimationMode = DevExpress.Utils.Drawing.ProgressAnimationMode.Cycle;
-            this.progressBarControl.Properties.StartColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(20)))));
-            this.progressBarControl.Size = new System.Drawing.Size(539, 18);
-            this.progressBarControl.TabIndex = 5;
             // 
             // labelCopyright
             // 
@@ -129,17 +113,33 @@
             // 
             // peImage
             // 
-            this.peImage.EditValue = global::Server.Properties.Resources.Background_Spash;
+            this.peImage.EditValue = global::Server.Properties.Resources.download;
             this.peImage.Location = new System.Drawing.Point(16, 15);
             this.peImage.Margin = new System.Windows.Forms.Padding(4);
             this.peImage.Name = "peImage";
             this.peImage.Properties.AllowFocused = false;
-            this.peImage.Properties.Appearance.BackColor = System.Drawing.Color.Transparent;
+            this.peImage.Properties.Appearance.BackColor = System.Drawing.Color.Black;
             this.peImage.Properties.Appearance.Options.UseBackColor = true;
             this.peImage.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.peImage.Properties.ShowMenu = false;
             this.peImage.Size = new System.Drawing.Size(568, 242);
             this.peImage.TabIndex = 9;
+            // 
+            // progressBarControl
+            // 
+            this.progressBarControl.EditValue = 0;
+            this.progressBarControl.Location = new System.Drawing.Point(31, 293);
+            this.progressBarControl.Margin = new System.Windows.Forms.Padding(4);
+            this.progressBarControl.Name = "progressBarControl";
+            this.progressBarControl.Properties.Appearance.BackColor = System.Drawing.Color.Azure;
+            this.progressBarControl.Properties.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(20)))));
+            this.progressBarControl.Properties.EndColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(20)))));
+            this.progressBarControl.Properties.LookAndFeel.SkinMaskColor = System.Drawing.Color.MidnightBlue;
+            this.progressBarControl.Properties.LookAndFeel.UseDefaultLookAndFeel = false;
+            this.progressBarControl.Properties.ProgressAnimationMode = DevExpress.Utils.Drawing.ProgressAnimationMode.Cycle;
+            this.progressBarControl.Properties.StartColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(20)))));
+            this.progressBarControl.Size = new System.Drawing.Size(539, 18);
+            this.progressBarControl.TabIndex = 5;
             // 
             // frmSplashScreen
             // 
@@ -158,9 +158,9 @@
             this.Text = "Form1";
             this.Shown += new System.EventHandler(this.frmSplashScreen_Shown);
             this.Resize += new System.EventHandler(this.frmSplashScreen_Resize);
-            ((System.ComponentModel.ISupportInitialize)(this.progressBarControl.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.peImage.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.progressBarControl.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

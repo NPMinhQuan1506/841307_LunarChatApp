@@ -48,19 +48,18 @@ namespace Server.DAO
         {
             var record = JsonConvert.DeserializeObject<Dictionary<string, GroupMemberDTO>>(resBody);
             DataTable dt = new DataTable();
-            dt = GroupMemberDTO.convertToDataTable();
+            dt = record.Values.FirstOrDefault().convertToDataTable();
 
             foreach (var item in record)
             {
                 DataRow dr = dt.NewRow();
                 dr = item.Value.convertToDataRow();
-                dt.Rows.Add(dr);
+                dt.Rows.Add(dr.ItemArray);
             }
 
             return dt;
 
         }
-
         public async Task create(GroupMemberDTO GroupMember)
         {
             GroupMember.id = Core.Common.DateTimeNowToBigInt();

@@ -9,7 +9,6 @@ namespace Server.DTO
 {
     class MessageDTO
     {
-        private static DataTable dt;
         public string id { set; get; } = "";
         public string conservationId { set; get; } = "";
         public string senderId { set; get; } = "";
@@ -25,6 +24,8 @@ namespace Server.DTO
 
         public DataRow convertToDataRow()
         {
+            DataTable dt = new DataTable();
+            dt = convertToDataTable();
             DataRow dr = dt.NewRow();
             dr["id"] = this.id;
             dr["conservationId"] = this.conservationId;
@@ -40,8 +41,9 @@ namespace Server.DTO
             return dr;
         }
 
-        public static DataTable convertToDataTable()
+        public DataTable convertToDataTable()
         {
+            DataTable dt = new DataTable();
             dt = new DataTable();
             dt.Columns.Add("id");
             dt.Columns.Add("conservationId");

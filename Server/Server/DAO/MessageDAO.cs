@@ -44,23 +44,23 @@ namespace Server.DAO
             return result;
         }
 
+
         private DataTable populateData(string resBody)
         {
             var record = JsonConvert.DeserializeObject<Dictionary<string, MessageDTO>>(resBody);
             DataTable dt = new DataTable();
-            dt = MessageDTO.convertToDataTable();
+            dt = record.Values.FirstOrDefault().convertToDataTable();
 
             foreach (var item in record)
             {
                 DataRow dr = dt.NewRow();
                 dr = item.Value.convertToDataRow();
-                dt.Rows.Add(dr);
+                dt.Rows.Add(dr.ItemArray);
             }
 
             return dt;
 
         }
-
         public async Task<MessageDTO> create(MessageDTO Message)
         {
             Message.id = Core.Common.DateTimeNowToBigInt();

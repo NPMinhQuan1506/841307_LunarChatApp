@@ -47,19 +47,18 @@ namespace Server.DAO
         {
             var record = JsonConvert.DeserializeObject<Dictionary<string, UserBlockDTO>>(resBody);
             DataTable dt = new DataTable();
-            dt = UserBlockDTO.convertToDataTable();
+            dt = record.Values.FirstOrDefault().convertToDataTable();
 
             foreach (var item in record)
             {
                 DataRow dr = dt.NewRow();
                 dr = item.Value.convertToDataRow();
-                dt.Rows.Add(dr);
+                dt.Rows.Add(dr.ItemArray);
             }
 
             return dt;
 
         }
-
         public async Task create(UserBlockDTO UserBlock)
         {
             UserBlock.id = Core.Common.DateTimeNowToBigInt();

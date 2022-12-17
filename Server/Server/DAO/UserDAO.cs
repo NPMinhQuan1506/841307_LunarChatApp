@@ -58,23 +58,23 @@ namespace Server.DAO
             }
             return null;
         }
+
         private DataTable populateData(string resBody)
         {
             var record = JsonConvert.DeserializeObject<Dictionary<string, UserDTO>>(resBody);
             DataTable dt = new DataTable();
-            dt = UserDTO.convertToDataTable();
+            dt = record.Values.FirstOrDefault().convertToDataTable();
 
             foreach (var item in record)
             {
                 DataRow dr = dt.NewRow();
                 dr = item.Value.convertToDataRow();
-                dt.Rows.Add(dr);
+                dt.Rows.Add(dr.ItemArray);
             }
 
             return dt;
 
         }
-
         public async Task create(UserDTO User)
         {
             User.id = Core.Common.DateTimeNowToBigInt();

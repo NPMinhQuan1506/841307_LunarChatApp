@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace Server.DTO
 {
-    class UserBlockDTO
+    public class UserLogDTO
     {
         public string id { set; get; } = "";
-        public string sourceId { set; get; } = "";
-        public string targetId { set; get; } = "";
+        public string Ip { set; get; } = "";
+        public string content { set; get; } = "";
+        public string userId { set; get; } = "";
         public string created { set; get; } = Core.Common.DateTimeTo_ymdhms(DateTime.Now);
 
         public DataRow convertToDataRow()
@@ -20,21 +21,24 @@ namespace Server.DTO
             dt = convertToDataTable();
             DataRow dr = dt.NewRow();
             dr["id"] = this.id;
-            dr["sourceId"] = this.sourceId;
-            dr["targetId"] = this.targetId;
-            dr["created"] = this.targetId;
+            dr["Ip"] = this.Ip;
+            dr["content"] = this.content;
+            dr["userId"] = this.userId;
+            dr["created"] = this.created;
             return dr;
         }
 
         public DataTable convertToDataTable()
         {
             DataTable dt = new DataTable();
-            dt = new DataTable();
             dt.Columns.Add("id");
-            dt.Columns.Add("sourceId");
-            dt.Columns.Add("targetId");
+            dt.Columns.Add("Ip");
+            dt.Columns.Add("content");
+            dt.Columns.Add("userId");
             dt.Columns.Add("created");
+
             return dt;
+
         }
     }
 }

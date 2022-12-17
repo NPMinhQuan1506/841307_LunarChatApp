@@ -9,7 +9,6 @@ namespace Server.DTO
 {
     class ConservationDTO
     {
-        private static DataTable dt;
         public string id { set; get; } = "";
         public string sourceId { set; get; } = "";
         public string targetId { set; get; } = "";
@@ -21,6 +20,8 @@ namespace Server.DTO
 
         public DataRow convertToDataRow()
         {
+            DataTable dt = new DataTable();
+            dt = convertToDataTable();
             DataRow dr = dt.NewRow();
             dr["id"] = this.id;
             dr["sourceId"] = this.sourceId;
@@ -33,8 +34,10 @@ namespace Server.DTO
             return dr;
         }
 
-        public static DataTable convertToDataTable()
+        public DataTable convertToDataTable()
         {
+            DataTable dt = new DataTable();
+            dt = convertToDataTable();
             dt = new DataTable();
             dt.Columns.Add("id");
             dt.Columns.Add("sourceId");

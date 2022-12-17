@@ -11,41 +11,40 @@ using System.Threading.Tasks;
 
 namespace Server.DAO
 {
-    class ConservationDAO
+    public class UserLogDAO
     {
         IFirebaseClient Client;
-        public ConservationDAO()
+        public UserLogDAO()
         {
             Client = ConnectDatabase.Instance.getClient();
         }
-        private static ConservationDAO instance;
-        public static ConservationDAO Instance
+        private static UserLogDAO instance;
+        public static UserLogDAO Instance
         {
             get
             {
                 if (instance == null)
-                    instance = new ConservationDAO();
+                    instance = new UserLogDAO();
                 return instance;
             }
         }
 
         public async Task<DataTable> loadData()
         {
-            FirebaseResponse res = await Client.GetTaskAsync(@"Conservation/");
+            FirebaseResponse res = await Client.GetTaskAsync(@"UserLog/");
             string resBody = res.Body.ToString();
             return populateData(resBody);
         }
 
-        public async Task<ConservationDTO> loadDataById(string id)
+        public async Task<UserLogDTO> loadDataById(string id)
         {
-            FirebaseResponse res = await Client.GetTaskAsync(@"Conservation/" + id.ToString() + @"/");
-            var result = JsonConvert.DeserializeObject<ConservationDTO>(res.Body.ToString());
+            FirebaseResponse res = await Client.GetTaskAsync(@"UserLog/" + id.ToString() + @"/");
+            var result = JsonConvert.DeserializeObject<UserLogDTO>(res.Body.ToString());
             return result;
         }
-
         private DataTable populateData(string resBody)
         {
-            var record = JsonConvert.DeserializeObject<Dictionary<string, ConservationDTO>>(resBody);
+            var record = JsonConvert.DeserializeObject<Dictionary<string, UserLogDTO>>(resBody);
             DataTable dt = new DataTable();
             dt = record.Values.FirstOrDefault().convertToDataTable();
 
@@ -59,26 +58,26 @@ namespace Server.DAO
             return dt;
 
         }
-        public async Task<ConservationDTO> create(ConservationDTO Conservation)
+
+        public async Task create(UserLogDTO UserLog)
         {
-            Conservation.id = Core.Common.DateTimeNowToBigInt();
-            SetResponse response = await Client.SetTaskAsync(@"Conservation/" + Conservation.id.ToString(), Conservation);
-            ConservationDTO result = response.ResultAs<ConservationDTO>();
-            return result;
+            UserLog.id = Core.Common.DateTimeNowToBigInt();
+            SetResponse response = await Client.SetTaskAsync(@"UserLog/" + UserLog.id.ToString(), UserLog);
+            UserLogDTO result = response.ResultAs<UserLogDTO>();
         }
 
-        public async Task<ConservationDTO> update(ConservationDTO Conservation)
+        public async Task update(UserLogDTO UserLog)
         {
-            FirebaseResponse response = await Client.UpdateTaskAsync(@"Conservation/" + Conservation.id.ToString(), Conservation);
-            ConservationDTO result = response.ResultAs<ConservationDTO>();
-            return result;
+            FirebaseResponse response = await Client.UpdateTaskAsync(@"UserLog/" + UserLog.id.ToString(), UserLog);
+            UserLogDTO result = response.ResultAs<UserLogDTO>();
         }
 
         public async Task delete(string id)
         {
-            FirebaseResponse response = await Client.DeleteTaskAsync(@"Conservation/" + id.ToString());
-            ConservationDTO result = response.ResultAs<ConservationDTO>();
+            FirebaseResponse response = await Client.DeleteTaskAsync(@"UserLog/" + id.ToString());
+            UserLogDTO result = response.ResultAs<UserLogDTO>();
         }
+
         public async Task<DataTable> search(string searchstring)
         {
             DataTable dt = await loadData();

@@ -127,6 +127,12 @@
             // 
             // accConnect
             // 
+            this.accConnect.HeaderTemplate.AddRange(new DevExpress.XtraBars.Navigation.HeaderElementInfo[] {
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Image),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.Text),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.ContextButtons),
+            new DevExpress.XtraBars.Navigation.HeaderElementInfo(DevExpress.XtraBars.Navigation.HeaderElementType.HeaderControl)});
+            this.accConnect.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("accConnect.ImageOptions.SvgImage")));
             this.accConnect.Name = "accConnect";
             this.accConnect.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             this.accConnect.Text = "Trang chủ";
@@ -278,7 +284,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmMenu";
             this.NavigationControl = this.acMenu;
-            this.Text = "Nhà Sách BaoBei";
+            this.Text = "Chat App Server";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmMenu_FormClosed);
             this.Load += new System.EventHandler(this.frmMenu_Load);

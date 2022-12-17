@@ -43,23 +43,23 @@ namespace Server.DAO
             return result;
         }
 
+
         private DataTable populateData(string resBody)
         {
             var record = JsonConvert.DeserializeObject<Dictionary<string, GroupDTO>>(resBody);
             DataTable dt = new DataTable();
-            dt = GroupDTO.convertToDataTable();
+            dt = record.Values.FirstOrDefault().convertToDataTable();
 
             foreach (var item in record)
             {
                 DataRow dr = dt.NewRow();
                 dr = item.Value.convertToDataRow();
-                dt.Rows.Add(dr);
+                dt.Rows.Add(dr.ItemArray);
             }
 
             return dt;
 
         }
-
         public async Task<GroupDTO> create(GroupDTO Group)
         {
             Group.id = Core.Common.DateTimeNowToBigInt();

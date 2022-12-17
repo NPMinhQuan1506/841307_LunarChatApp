@@ -818,3 +818,5 @@ C:\Users\ndalu\source\repos\841307_LunarChatApp\Server\Server\bin\Debug\ru\DevEx
 C:\Users\ndalu\source\repos\841307_LunarChatApp\Server\Server\obj\Debug\Server.csproj.CopyComplete
 C:\Users\ndalu\source\repos\841307_LunarChatApp\Server\Server\obj\Debug\Server.exe
 C:\Users\ndalu\source\repos\841307_LunarChatApp\Server\Server\obj\Debug\Server.pdb
+C:\Users\ndalu\source\repos\841307_LunarChatApp\Server\Server\obj\Debug\Server.GUI.Home.ctrUserActive.resources
+C:\Users\ndalu\source\repos\841307_LunarChatApp\Server\Server\obj\Debug\Server.GUI.Home.ctrUserLog.resources

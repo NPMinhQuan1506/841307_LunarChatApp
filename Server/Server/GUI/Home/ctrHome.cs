@@ -1,25 +1,36 @@
 ﻿using DevExpress.ClipboardSource.SpreadsheetML;
 using DevExpress.DirectWrite;
 using DevExpress.Office.Tsp;
+using DevExpress.Xpo.DB.Helpers;
 using DevExpress.XtraCharts;
+using DevExpress.XtraCharts.Native;
 using DevExpress.XtraEditors;
+using DevExpress.XtraPrinting;
 using DevExpress.XtraReports.Templates;
+using FireSharp.Interfaces;
+using FireSharp.Response;
 using Newtonsoft.Json;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Database;
 using Server.BUS;
 using Server.DAO;
 using Server.DTO;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Security.Principal;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Server.GUI.Home
@@ -33,13 +44,31 @@ namespace Server.GUI.Home
         Dictionary<string, Socket> ClientSocList = new Dictionary<string, Socket>(); // "id": Socket
         private byte[] data = new byte[1024];
         private int size = 1024;
+        IFirebaseClient Client;
+        Core.Common func = new Core.Common();
+        GUI.Home.ctrUserActive ctrActi;
+        GUI.Home.ctrUserLog ctrHis;
         public ctrHome()
         {
             InitializeComponent();
+            Client = ConnectDatabase.Instance.getClient();
             init();
+            tpDetail.Controls.Clear();
+            ctrActi = new GUI.Home.ctrUserActive();
+            ctrActi.Dock = DockStyle.Fill;
+            ctrActi.BringToFront();
+            tpDetail.Controls.Add(ctrActi);
+
+            ctrHis = new GUI.Home.ctrUserLog();
+            ctrHis.Dock = DockStyle.Fill;
+            ctrHis.BringToFront();
+            tpOverview.Controls.Add(ctrHis);
+
+
+            loadData();
         }
 
-        private void init()
+        private async void init()
         {
             string hostName = Dns.GetHostName();
             string myIP = "";
@@ -52,10 +81,11 @@ namespace Server.GUI.Home
                     break;
                 }
             }
-            string value = "\uD83D\uDE42";
-            richTextBox1.Text = value;
-            //txtIp.Text = myIP;
+
+            txtIp.Text = myIP;
             txtPort.Text = "2008";
+
+
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -145,7 +175,6 @@ namespace Server.GUI.Home
                                     ClientSocList.Remove(clientid);
                                     ClientSocList.Add(clientid, client);
                                     await UserBUS.Instance.update(clientid, null, null, null, 1, 0, null);
-
                                     ResponseToClient(client, "LOGINSUCC", $"{clientid}");
                                     ReceiveData(client);
                                     //SetText($"{username} logged in!");
@@ -265,12 +294,12 @@ namespace Server.GUI.Home
                             var first = group.First();
                             var groupObj = group.Keys.SingleOrDefault();
                             var groupName = groupObj.name;
-                            
+
 
                             if (groupObj.id != "0")
                             {
                                 var member = first.Value;
-                                foreach(var item in member)
+                                foreach (var item in member)
                                 {
                                     await GroupMemberBUS.Instance.create("0", groupObj.id, item.userId, item.role);
                                 }
@@ -280,7 +309,7 @@ namespace Server.GUI.Home
                             else
                             {
                                 var groupNew = await GroupBUS.Instance.create("0", groupName, groupObj.img, 1);
-                                
+
                                 var member = first.Value;
                                 foreach (var item in member)
                                 {
@@ -325,6 +354,34 @@ namespace Server.GUI.Home
             Response res = new Response(message);
             PackageModule common = new PackageModule(statusCode, JsonConvert.SerializeObject(res));
             SendData(client, common);
+        }
+
+        private async void txtIp_EditValueChanged(object sender, EventArgs e)
+        {
+            FirebaseResponse response = await Client.UpdateTaskAsync(@"/Settings/Ip", txtIp.Text);
+
+        }
+
+        private async void txtPort_EditValueChanged(object sender, EventArgs e)
+        {
+            FirebaseResponse response = await Client.UpdateTaskAsync(@"/Settings/Port", txtPort.Text);
+        }
+
+        private void loadData()
+        {
+            if (tbRevenue.SelectedIndex == 0)
+            {
+                ctrHis.BringToFront();
+            }
+            else
+            {
+                ctrActi.BringToFront();
+            }
+        }
+
+        private void tbRevenue_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            loadData();
         }
     }
 }

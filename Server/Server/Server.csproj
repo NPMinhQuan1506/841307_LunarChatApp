@@ -291,6 +291,7 @@
     <Compile Include="BUS\MessageBUS.cs" />
     <Compile Include="BUS\UserBlockBUS.cs" />
     <Compile Include="BUS\UserBUS.cs" />
+    <Compile Include="BUS\UserLogBUS.cs" />
     <Compile Include="Core\Common.cs" />
     <Compile Include="Core\MyExcel.cs" />
     <Compile Include="Core\Validation.cs" />
@@ -302,12 +303,14 @@
     <Compile Include="DAO\PackageModule.cs" />
     <Compile Include="DAO\UserBlockDAO.cs" />
     <Compile Include="DAO\UserDAO.cs" />
+    <Compile Include="DAO\UserLogDAO.cs" />
     <Compile Include="DTO\ConservationDTO.cs" />
     <Compile Include="DTO\GroupDTO.cs" />
     <Compile Include="DTO\GroupMemberDTO.cs" />
     <Compile Include="DTO\MessageDTO.cs" />
     <Compile Include="DTO\UserBlockDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
+    <Compile Include="DTO\UserLogDTO.cs" />
     <Compile Include="GUI\Home\ctrHome.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -319,6 +322,18 @@
     </Compile>
     <Compile Include="GUI\frmMenu.Designer.cs">
       <DependentUpon>frmMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Home\ctrUserActive.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Home\ctrUserActive.Designer.cs">
+      <DependentUpon>ctrUserActive.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Home\ctrUserLog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Home\ctrUserLog.Designer.cs">
+      <DependentUpon>ctrUserLog.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -351,6 +366,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\frmMenu.resx">
       <DependentUpon>frmMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Home\ctrUserActive.resx">
+      <DependentUpon>ctrUserActive.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Home\ctrUserLog.resx">
+      <DependentUpon>ctrUserLog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -391,6 +412,7 @@
     <None Include="Resources\Question.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\download.jpg" />
     <None Include="Resources\employee.png" />
     <None Include="Resources\Revenue.png" />
     <None Include="Resources\customer.jpg" />
